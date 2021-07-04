@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="question-container">
+        <div class="label">
+            Questions
+        </div>
+        <% data.map((item)=>{ %>
+            <div class="ques">
+                <div class="question-label">
+                    <%= item.question %>
+                </div>
+                <div class="options">
+                    <% item.options.map((item2)=>{ %>
+                        <div class="option">
+                            <input type="radio" value="<%=item2%>">
+                            <span class= option-label><%= item2 %></span>
+                        </div>
+                   <%})%>
+                </div>
+                <div class="answer-label">
+                    <%= item.correct_answer %>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+</body>
+</html>
