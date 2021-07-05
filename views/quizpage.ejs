@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Quizes</title></title>
 </head>
 <body>
     <div class="question-container">
@@ -24,11 +24,25 @@
                         </div>
                    <%})%>
                 </div>
-                <div class="answer-label">
+                <div class="answer-label" id="<%= item.correct_answer %>" style="display:none;">
                     <%= item.correct_answer %>
                 </div>
+                <button id="btn" onclick="hide(`<%= item.correct_answer%>`)">Show Answer</button> 
             </div>
         <% }) %>
     </div>
 </body>
+<script>
+        
+    const hide=(val)=>{
+  
+            let Label = document.getElementById(`${val}`);
+            console.log(Label.value)
+            
+            if(Label.style.display == 'none'){
+            Label.style.display = 'block';
+    }
+        }
+      
+</script>
 </html>
