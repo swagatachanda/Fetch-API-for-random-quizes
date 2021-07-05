@@ -5,12 +5,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quizes</title></title>
+    <!-- <script src="https://kit.fontawesome.com/11d589870a.js" crossorigin="anonymous"></script> -->
+    <link rel="stylesheet" href="/quizpage.css">
+    <script src="https://kit.fontawesome.com/11d589870a.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="question-container">
-        <div class="label">
-            Questions
+    <div class="navbar-container">
+        <div class="left">
+            <div class="logo">
+                <i class="fas fa-user-graduate"></i>
+            </div>
+            <div class="quiz-name">
+                <h1>Questions</h1>
+            </div>
         </div>
+        <div class="right">
+            <!-- <div class="userheader">
+                
+            </div> -->
+            <div class="after">
+                <i class="fas fa-user-circle"></i>
+            </div>
+            <div class="logout"> 
+                <i class="fas fa-sign-out-alt"></i>
+            </div>
+        </div>
+    </div>
+    <div class="question-container">
+        <!-- <div class="label">
+            <h1>Questions</h1>
+        </div> -->
         <% data.map((item)=>{ %>
             <div class="ques">
                 <div class="question-label">
@@ -19,8 +43,10 @@
                 <div class="options">
                     <% item.options.map((item2)=>{ %>
                         <div class="option">
-                            <input type="radio" value="<%=item2%>">
-                            <span class= option-label><%= item2 %></span>
+                            <!-- <input type="radio" value="<%=item2%>"> -->
+                            <ul>
+                                <li><span class= option-label><%= item2 %></span></li>
+                            </ul>
                         </div>
                    <%})%>
                 </div>
