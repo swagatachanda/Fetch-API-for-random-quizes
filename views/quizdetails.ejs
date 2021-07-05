@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quizes</title></title>
-
+    <title>All Quizes</title></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- <link rel="stylesheet" href="/quizpage.css"> -->
     <script src="https://kit.fontawesome.com/11d589870a.js" crossorigin="anonymous"></script>
 </head>
@@ -13,28 +13,27 @@
     <div id="question-label">
         <% data.map((item)=>{ %>
             
-      <div id="all-details">
+      <div id="all-details" class="centerButton">
           
               <div class="name" onclick="movetopage(`<%= item._id %>`)">
                         <div class="questions">
-
-                            Date : <%= item.dot %>
+                            <b><u>Date</u></b> : <%= item.dot %>
                         </div>
                         <div class="questions">
-                            No of Questions : <%= item.noofquestions %>
+                            <b><u>No of Questions</u></b> : <%= item.noofquestions %>
                         </div>
                         <div class="questions">
-                            Question Category : <%= item.category %>
+                            <b><u>Question Category</u></b> : <%= item.category %>
                         </div>
                         <div class="questions">
-                            Question Difficulty : <%= item.difficulty %>
+                            <b><u>Question Difficulty</u></b> : <%= item.difficulty %>
                         </div>
                         <div class="questions">
-                            Question Type : <%= item.type %>
+                            <b><u>Question Type</u></b> : <%= item.type %>
                         </div>
-                        <div class="questions">
+                        <!-- <div class="questions">
                             
-                        </div>
+                        </div> -->
                         </div>
                         
                         </div>
@@ -71,14 +70,18 @@
     font-size: 18px;
     font-family: 'Raleway',sans-serif;
     color: wheat;
-    padding: 20px;
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-bottom: 10px;
     }
     .questions{
-        padding-bottom: 10px;
+        padding-bottom: 20px;
+        /* font-family: cursive; */
     }
     .name:hover{
         cursor: pointer;
     }
+ 
 </style>
 <script>
     const movetopage=(val)=>{
