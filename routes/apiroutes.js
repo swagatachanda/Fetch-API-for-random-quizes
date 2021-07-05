@@ -214,7 +214,8 @@ router.get('/getall',async(req,res)=>{
     try{
         q={}
     const getques = await quiz.find(q)
-    res.json(getques)
+    res.render("quizdetails",{data : getques})
+    // res.send(getques)
     }
     catch(err)
     {
