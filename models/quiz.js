@@ -1,6 +1,11 @@
 const mongoose = require('mongoose')
 
+
 const questionpattern = mongoose.Schema({
+    dot:{
+        type : Date,
+        required: true
+    },
     noofquestions:{
         type: Number,
         default: 10,

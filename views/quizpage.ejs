@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quizes</title></title>
-    <!-- <script src="https://kit.fontawesome.com/11d589870a.js" crossorigin="anonymous"></script> -->
+
     <link rel="stylesheet" href="/quizpage.css">
     <script src="https://kit.fontawesome.com/11d589870a.js" crossorigin="anonymous"></script>
 </head>
@@ -20,10 +20,8 @@
             </div>
         </div>
         <div class="right">
-            <!-- <div class="userheader">
-                
-            </div> -->
-            <div class="after">
+            
+            <div class="after" onclick="toHome()">
                 <i class="fas fa-user-circle"></i>
             </div>
             <div class="logout"> 
@@ -32,23 +30,26 @@
         </div>
     </div>
     <div class="question-container">
-        <!-- <div class="label">
-            <h1>Questions</h1>
-        </div> -->
+   
+        <ol type="1">
         <% data.map((item)=>{ %>
             <div class="ques">
                 <div class="question-label">
+                    <li>
                     <%= item.question %>
+                    </li>
                 </div>
                 <div class="options">
+                    <ol type="i">
                     <% item.options.map((item2)=>{ %>
                         <div class="option">
-                            <!-- <input type="radio" value="<%=item2%>"> -->
-                            <ul>
+                         
+                            
                                 <li><span class= option-label><%= item2 %></span></li>
-                            </ul>
+                            
                         </div>
                    <%})%>
+                    </ol>
                 </div>
                 <div class="answer-label" id="<%= item.correct_answer %>" style="display:none;">
                     <%= item.correct_answer %>
@@ -56,6 +57,7 @@
                 <button id="btn" onclick="hide(`<%= item.correct_answer%>`)">Show Answer</button> 
             </div>
         <% }) %>
+        </ol>
     </div>
 </body>
 <script>
@@ -69,6 +71,10 @@
             Label.style.display = 'block';
     }
         }
+
+    const toHome=()=>{
+        location.assign(`${window.location.origin}/api/getall`)
+    }
       
 </script>
 </html>

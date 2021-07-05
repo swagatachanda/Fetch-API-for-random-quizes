@@ -7,7 +7,7 @@ html,body{
     background-color: rgb(70, 192, 192);
 }
 .question-container{
-    padding-top: 20px;
+    padding-top: 5px;
 }
 .label{
     padding-left: 20px;
@@ -15,6 +15,7 @@ html,body{
 .question-label{
     font-size: 20px;
     font-family: 'Ralewa', sans-serif;
+    font-weight: bolder;
 }
 .ques{
     padding-top: 30px;
@@ -57,4 +58,30 @@ html,body{
 }
 .logout,.after:hover{
     cursor: pointer;
+}
+.option
+{
+    padding: 13px;
+    font-size: 17px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: bold;
+    user-select: none;
+}
+#btn{
+    font-size: 17px;
+    color: black;
+    user-select: none;
+    margin: 10px;
+    margin-top: 7px;
+    padding: 5px;
+    border-radius: 5px;
+}
+#btn:hover
+{
+    cursor: pointer;
+}
+.answer-label{
+    padding: 13px;
+    padding-top: 12px;
+    padding-bottom: 12px;
 }
