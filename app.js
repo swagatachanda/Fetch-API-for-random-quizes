@@ -1,12 +1,13 @@
 const expresss = require('express')
 const mongoose = require('mongoose')
 const API = require('./routes/apiroutes')
-const path = require('path')
+const User = require('./routes/user')
 const app = expresss()
 
 require('dotenv/config')
 
 app.use('/api',API)
+app.use('/user',User)
 
 app.use(expresss.static(__dirname+'/css'))
 app.set('view engine', 'ejs')

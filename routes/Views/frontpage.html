@@ -5,10 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Get Random Quizes</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-    <input type="number" id="select_number" min="1" max="30" value="10">
-    <select name='searchbar-1'>
+    <div class="container-fluid center">
+        <div class="allinput">
+            <div class="inputs">
+    <input type="number" id="select_number" class="form-control centerTextBox" min="1" max="30" value="10">
+    </div>
+    <div class="inputs">
+    <select name='searchbar-1' class="form-control centerTextBox">
         <option value="Any Category">Any Category</option>
         <option value="Books">Books</option>
         <option value="Film">Film</option>
@@ -17,19 +23,25 @@
         <option value="Computer Science">Computer Science</option>
         <option value="Music">Music</option>
     </select>
-    <select name='searchbar-2'>
+    </div>
+    <div class="inputs">
+    <select name='searchbar-2' class="form-control centerTextBox">
         <option value="Any Difficulty">Any Difficulty</option>
         <option value="Easy">Easy</option>
         <option value="Medium">Medium</option>
         <option value="Hard">Hard</option>
     </select>
-    <select name='searchbar-3'>
+    </div>
+    <div class="inputs">
+    <select name='searchbar-3' class="form-control centerTextBox">
         <option value="Any Type">Any Type</option>
         <option value="Multiple Choice">Multiple Choice</option>
         <option value="True / False">True / False</option>
     </select>
+    </div>
+    </div>
     
-    <button id="btn">Create Quiz</button>
+    <div class="centerButton"><button id="btn">Create Quiz</button></div>
     <!-- <style>
         #searchbar{
             margin-right: 200px;
@@ -43,6 +55,41 @@
             font-weight: bold;
         }
     </style> -->
+    </div>
+    <style>
+        html,body{
+            margin: 0px;
+    padding: 0px;
+    width: 100%;
+    height: 100%;
+        }
+    .center {
+        margin-top: 100px;
+        width: 50%;
+        border: 3px solid green;
+        padding: 10px;
+      }
+      .centerTextBox {
+        margin: auto;
+        width: 50%;
+        border: 2px solid black;
+        padding: 3px;
+      }
+      .centerButton {
+        margin: auto;
+        width: 50%;
+        padding: 10px;
+      }
+      .allinput{
+          padding: 20px;
+      }
+      .inputs{
+          padding:  20px;
+      }
+      select{
+          padding: 30px;
+      }
+    </style>
     
 </body>
 <script>

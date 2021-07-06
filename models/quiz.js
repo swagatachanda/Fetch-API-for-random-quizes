@@ -2,6 +2,10 @@ const mongoose = require('mongoose')
 
 
 const questionpattern = mongoose.Schema({
+    userId:{
+        type: String,
+        required: true
+    },
     dot:{
         type : Date,
         required: true

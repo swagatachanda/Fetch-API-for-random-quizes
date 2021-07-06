@@ -2,6 +2,7 @@ const express = require('express')
 const details = require('../models/Details')
 const quiz = require('../models/quiz')
 const fetch = require('node-fetch')
+const user = require('../models/login')
 const question = require('../models/questions')
 const router = express.Router()
 
@@ -65,9 +66,10 @@ router.get('/',async(req,res)=>{
 })
 
 
-router.post('/create',async(req,res)=>{
+router.post('/create/:userid',async(req,res)=>{
     console.log(req.body)
     const quesdet = new quiz({
+        userId : req.params.userid,
         dot: new Date(),
         noofquestions: req.body.noofquestions,
         category: req.body.category,
@@ -87,6 +89,7 @@ router.post('/create',async(req,res)=>{
         const json_res = await resp.json()
         console.log(json_res)
         res.send(json_res)
+        // res.send(newQuiz)
     }
     catch(err){
         res.json({'status': false, 'error': err, 'code':10})
@@ -189,15 +192,21 @@ router.patch('/quiz/:quizId', async(req,res)=>{
     }
 })
 
+
 router.get('/quiz/:quizId', async(req,res)=>{
     try{
     const getques = await question.find({'quizId':req.params.quizId})
+    const quizdetails = await quiz.findById(req.params.quizId)
+   
+    const userdetails = await user.findById(quizdetails.userId)
+    console.log(userdetails._id)
     sendQuestions=[]
     getques[0].answers_det.map((item)=>{
         var data={}
         data.question=item.question
         data.options=item.options
         data.correct_answer=item.correct_answer
+        data.userid=userdetails._id
         sendQuestions.push(data)
     })
    
@@ -210,12 +219,14 @@ router.get('/quiz/:quizId', async(req,res)=>{
     }
 })
 
-router.get('/getall',async(req,res)=>{
+router.get('/getall/:userId',async(req,res)=>{
     try{
-        q={}
-    const getques = await quiz.find(q)
+        
+    const getques = await quiz.find({'userId':req.params.userId})
+    // res.render("quizdetails",{data : getques})
+    console.log(getques)
     res.render("quizdetails",{data : getques})
-    // res.send(getques)
+    // res.json({'status': true, 'data':getques})
     }
     catch(err)
     {
