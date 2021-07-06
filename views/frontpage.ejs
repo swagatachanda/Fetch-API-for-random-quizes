@@ -6,8 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Get Random Quizes</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/11d589870a.js" crossorigin="anonymous"></script>
 </head>
 <body>
+    <div class="navbar-container">
+        <div class="left">
+            
+            <div class="quiz-name">
+                <h1>Test your Knowledge</h1>
+            </div>
+        </div>
+        <div class="right">
+            <div class="after" onclick="toHome(`<%= data._id %>`)">
+                <i class="fas fa-user-circle"></i>
+            </div>
+            <div class="logout"> 
+                <i class="fas fa-sign-out-alt"></i>
+            </div>
+            
+        </div>
+        </div>
     <div class="container-fluid center">
         <div class="allinput">
             <div class="inputs">
@@ -33,7 +51,8 @@
     </select>
     </div>
     <div class="inputs">
-    <select name='searchbar-3' class="form-control centerTextBox">
+    <select name='searchbar-3' class="form-control centerTextBox"   onkeypress="this.style.width = 
+    ((this.value.length + 1) * 8) + 'px';">
         <option value="Any Type">Any Type</option>
         <option value="Multiple Choice">Multiple Choice</option>
         <option value="True / False">True / False</option>
@@ -42,21 +61,10 @@
     </div>
     
     <div class="centerButton"><button id="btn">Create Quiz</button></div>
-    <!-- <style>
-        #searchbar{
-            margin-right: 200px;
-            margin-left: 300px;
-            margin-top: 7px;
-            padding: 10px 2px;
-            width: 120px;
-            border-radius: 2px;
-            background-color: rgb(221, 224, 224);
-            border: 2px solid pink;
-            font-weight: bold;
-        }
-    </style> -->
+   
     </div>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
         html,body{
             margin: 0px;
     padding: 0px;
@@ -67,7 +75,7 @@
         margin-top: 100px;
         width: 50%;
         border: 3px solid green;
-        padding: 10px;
+        padding: 2px;
       }
       .centerTextBox {
         margin: auto;
@@ -81,7 +89,7 @@
         padding: 10px;
       }
       .allinput{
-          padding: 20px;
+          padding: 5px;
       }
       .inputs{
           padding:  20px;
@@ -89,6 +97,60 @@
       select{
           padding: 30px;
       }
+      .navbar-container
+        {
+            width: 100%;
+            height: 60px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            background-color: rgb(135, 172, 241);
+            justify-content: space-between;
+            color:black;
+        }
+        .navbar-container > div
+        {
+            display : flex;
+            align-items: center;
+        }
+        .left > div
+        {
+            padding-left: 20px;
+        }
+
+        .logout{
+            font-size: 25px;
+        }
+        .after{
+            font-size: 25px;
+        }
+        .right>div{
+            padding-right: 20px;
+        }
+        .logout,.after:hover{
+            cursor: pointer;
+        }
+        @media screen and (max-width: 1100px) {
+            .quiz-name{
+                width: 80%;
+                padding-top: 10px;
+            }
+        
+            .navbar-container{
+                height: 20%;
+            }
+            .after{
+                font-size: 35px;
+            }
+            .logout{
+                font-size: 35px;
+            }
+            .center{
+                height: auto;
+            }
+            
+   
+}
     </style>
     
 </body>
@@ -125,7 +187,6 @@
             }
         }
         const u = `<%= data._id%>`
-        // const q = 
         const url = `${window.location.origin}/api/create/${u}`
         fetch(url,{
             method:'POST',
@@ -145,6 +206,9 @@
             }
         })
   
+    }
+    const toHome=(val)=>{
+        location.assign(`${window.location.origin}/api/getall/${val}`)
     }
   
     
