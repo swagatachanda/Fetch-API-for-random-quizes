@@ -69,14 +69,14 @@ router.post('/login',async(req,res)=>{
             res.json({'status' : status, error, code})
         else{
             const searchUser= await user.findOne({'username': req.body.username})
-            console.log(searchUser.quizid)
-            const quizdetails = await quiz.find({'userId':searchUser._id})
-            const url=`${req.protocol}://${req.get('host')}/api/getall/${searchUser._id}`
-            const quesdetails = await fetch(url)
-            const result = await quesdetails.json()
-            console.log(result)
+            console.log(searchUser)
+            // const quizdetails = await quiz.find({'userId':searchUser._id})
+            // const url=`${req.protocol}://${req.get('host')}/api/getall/${searchUser[0]._id}`
+            // const quesdetails = await fetch(url)
+            // const result = await quesdetails.json()
+            // console.log(result)
             // res.render("quizdetails",{data : searchUser})
-        res.send(result)
+        res.send({'data':searchUser})
             
             // res.json({"status": true, "data" : searchUser})
             // res.send(searchUser)

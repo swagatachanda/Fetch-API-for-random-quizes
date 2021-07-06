@@ -5,6 +5,7 @@ const fetch = require('node-fetch')
 const user = require('../models/login')
 const question = require('../models/questions')
 const router = express.Router()
+require('dotenv/config')
 
 
 
@@ -36,34 +37,45 @@ const map_type = (value)=>{
 }
 const map_category = (value)=>{
     if(value=='General Knowledge'){
-        value=9
+        value=process.env.gk
     }
     else if(value=='Books'){
-        value=10
+        value=process.env.books
     }
     else if(value=='Film'){
-        value=11
+        value=process.env.film
     }
     else if(value=='Computer Science'){
-        value=18
+        value=process.env.cs
     }
     else if(value=='Sports') {
-        value=21
+        value=process.env.sports
     }
     else if(value=='Music'){
-        value=12
+        value=process.env.music
     }
     else{
-        value=0
+        value=process.env.any
     }
     return value
 }
 
 
 
-router.get('/',async(req,res)=>{
-    res.sendFile(__dirname+'/Views/frontpage.html')
+router.get('/:userid',async(req,res)=>{
+    
+    try{
+        const searchUser=await user.findById(req.params.userid)
+        console.log(searchUser)
+    
+        res.render("frontpage",{data:searchUser})
+    }
+    catch(err)
+    {
+        res.json({'status': false, 'error' : err, 'code': 700})
+    }
 })
+
 
 
 router.post('/create/:userid',async(req,res)=>{
@@ -89,7 +101,7 @@ router.post('/create/:userid',async(req,res)=>{
         const json_res = await resp.json()
         console.log(json_res)
         res.send(json_res)
-        // res.send(newQuiz)
+        
     }
     catch(err){
         res.json({'status': false, 'error': err, 'code':10})
@@ -106,38 +118,38 @@ router.patch('/quiz/:quizId', async(req,res)=>{
         const cat = map_category(quesdetails.category)
         const diff = map_difficulty(quesdetails.difficulty)
         const typ = map_type(quesdetails.type)
-        let url = `https://opentdb.com/api.php?amount=${quesdetails.noofquestions}`
+        let url = `${process.env.URL}amount=${quesdetails.noofquestions}`
         if(cat==0&&typ=='Any Type'&&diff=='Any Difficulty'){
-            url =  `https://opentdb.com/api.php?amount=${quesdetails.noofquestions}`
+            url =  `${process.env.URL}amount=${quesdetails.noofquestions}`
         }
         else if(cat==0&&diff=='Any Difficulty'){
            
-            url = `https://opentdb.com/api.php?amount=${quesdetails.noofquestions}&type=${typ}`
+            url = `${process.env.URL}amount=${quesdetails.noofquestions}&type=${typ}`
             
         }
         else if(cat==0&&typ=='Any Type'){
            
-            url = `https://opentdb.com/api.php?amount=${quesdetails.noofquestions}&difficulty=${diff}`
+            url = `${process.env.URL}amount=${quesdetails.noofquestions}&difficulty=${diff}`
             
         }
         else if(diff=='Any Difficulty'&&typ=='Any Type')
         {
-            url = `https://opentdb.com/api.php?amount=${quesdetails.noofquestions}&category=${cat}`
+            url = `${process.env.URL}amount=${quesdetails.noofquestions}&category=${cat}`
         }
         else if(cat==0){
-            url = `https://opentdb.com/api.php?amount=${quesdetails.noofquestions}&difficulty=${diff}&type=${typ}`
+            url = `${process.env.URL}amount=${quesdetails.noofquestions}&difficulty=${diff}&type=${typ}`
         }
         else if(diff=='Any Difficulty'){
          
-            url = `https://opentdb.com/api.php?amount=${quesdetails.noofquestions}&category=${cat}&type=${typ}`
+            url = `${process.env.URL}amount=${quesdetails.noofquestions}&category=${cat}&type=${typ}`
         }
         else if(typ=='Any Type'){
         
-            url = `https://opentdb.com/api.php?amount=${quesdetails.noofquestions}&category=${cat}&difficulty=${diff}`
+            url = `${process.env.URL}amount=${quesdetails.noofquestions}&category=${cat}&difficulty=${diff}`
         }
         
        else{
-            url = `https://opentdb.com/api.php?amount=${quesdetails.noofquestions}&category=${cat}&difficulty=${diff}&type=${typ}`
+            url = `${process.env.URL}amount=${quesdetails.noofquestions}&category=${cat}&difficulty=${diff}&type=${typ}`
             }
         
         console.log(url)
@@ -230,7 +242,7 @@ router.get('/getall/:userId',async(req,res)=>{
     }
     catch(err)
     {
-        res.json({'status': false, 'error' : err, 'code': 103})
+        res.json({'status': false, 'error' : err, 'code': 500})
     }
 })
 
