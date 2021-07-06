@@ -2,6 +2,7 @@ const expresss = require('express')
 const mongoose = require('mongoose')
 const API = require('./routes/apiroutes')
 const User = require('./routes/user')
+
 const app = expresss()
 
 require('dotenv/config')
@@ -13,7 +14,7 @@ app.use(expresss.static(__dirname+'/css'))
 app.set('view engine', 'ejs')
 
 app.get('/',async(req,res)=>{
-    res.send('This is my app!!')
+    res.render("userpage")
 })
 
 mongoose.connect(process.env.DB_CONNECTION,{

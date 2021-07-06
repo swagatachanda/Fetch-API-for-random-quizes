@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/11d589870a.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href='/createquiz.css'>
+    <link rel="stylesheet" href='/login.css'>
+    <title>My Quiz</title>
+</head>
+<body>
+    <div class="content-container">
+        <div class="login-container">
+            <div class="username">
+                <div class="label">
+                    Username
+                </div>
+                <div class="input-field">
+                    <input type="text" class="input user" required placeholder="">
+                    <div class="border"></div>
+                </div>
+            </div>
+            <div class="password">
+                <div class="label">
+                    Password
+                </div>
+                <div class="input-field">
+                    <div class="whole-input">
+                        <input type="password" class="input pass" required placeholder="">
+                        <div class="show-pass" onclick="showpass()">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                    </div>
+                    <div class="border"></div>
+                </div>
+            </div>
+            <div class="button-container">
+                <div class="error-message">
+
+                </div>
+                <div class="button login" onclick="login()">
+                    <div class="button-label">
+                        Login
+                    </div>
+                </div>
+            </div>
+            <div class="signup">
+                <div class="create">
+                    <div class="create-label">
+                        Create an account
+                    </div>
+                </div>
+              
+            </div>
+        </div>
+    </div>
+    <style>
+        html,body{
+            margin: 0px;
+        padding: 0px;
+        width: 100%;
+        height: 100%;
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+        .content-container
+        {
+            background-color: turquoise;
+            justify-content: center;
+            align-items: center;
+            
+        }
+        .login-container
+        {
+            width: 30%;
+            height : 80%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-left: 20px;
+            
+          
+        }
+        .username,.password
+        {
+            display: flex;
+            flex-direction: column;
+            font-family: 'Raleway', sans-serif; 
+            font-size: 20px;
+            color: rgb(5, 5, 5);
+        }
+        
+        .password{
+            padding-top: 20px;
+        }
+        .username > div, .password>div
+        {
+            padding-bottom: 10px;
+        }
+        .input
+        {
+            background: transparent;
+            color: rgb(109, 47, 47);
+            outline: none;
+            border: none;
+            width: 100%;
+            font-size: 18px;
+        }
+        .pass
+        {
+            width:90%
+        }
+        .input-field
+        {
+            width: 100%;
+        }
+        .border
+        {
+            border-bottom: 2px solid rgb(15, 6, 15);
+        }
+        .button-container
+        {
+            display: flex;
+            justify-content: flex-end;
+            padding-top: 30px;
+            align-items: center;
+        }
+        .button
+        {
+            width: 90px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Raleway', sans-serif;
+            background-color:sandybrown;
+            font-size: 20px;
+            user-select: none;
+        }
+        .button:hover
+        {
+            cursor: pointer;
+            background-color:rgb(247, 138, 44);
+        }
+        .whole-input
+        {
+            display: flex;
+            justify-content: space-between;
+        }
+        .show-pass
+        {
+            padding-bottom: 5px;
+        }
+        .show-pass:hover{
+            cursor: pointer;
+            color: white;
+        }
+        .create
+        {
+            font-family: 'Raleway',sans-serif;
+            user-select: none;
+            display: flex;
+        }
+        
+        .create-label:hover
+        {
+            cursor: pointer;
+            color: aquamarine;
+        }
+        .error-message
+        {
+            color : red;
+            font-family: 'Raleway',sans-serif;
+            font-size: 15px;
+            padding-right: 20px;
+            display: none;
+        }
+        
+        @media screen and (max-width: 1100px) {
+            .login-container
+            {
+                width: 90%;
+                height: 90%;
+            }
+            .input-field
+            {
+                width:90%;
+            }
+            .button-container
+            {
+                justify-content: flex-start;
+                padding-bottom: 20px;
+            }
+            .signup
+            {
+                padding-top: 20px;
+            }
+            .content-container
+                {
+                    height: 100%
+                }
+                .login-container
+                {
+                    height: 100%;
+                }
+        }
+        </style>
+</body>
+<script>
+    var showpassState=false
+    var errmsg=document.querySelector('.error-message')
+    const showpass=()=>{
+        var elem=document.querySelector('.input.pass')
+        var icon=document.querySelector('.show-pass')
+        if(!showpassState)
+        {
+            elem.type='text'
+            icon.innerHTML=`<i class="far fa-eye-slash"></i>`
+            showpassState=true
+        }
+        else
+        {
+            elem.type='password'
+            icon.innerHTML=`<i class="far fa-eye"></i>`
+            showpassState=false
+        }
+    }
+    const errormessage=(msg)=>{
+        errmsg.style.display='block'
+        errmsg.innerHTML=`${msg}`
+        setTimeout(()=>{errmsg.style.display='none'},2000)
+    }
+    const login = async ()=>{
+        var data={}
+        data.username=document.querySelector('.input.user').value
+        data.password=document.querySelector('.input.pass').value
+        if(data.username==='' || data.password=='')
+        {
+           alert('Fill up the fields')
+           return
+        }
+        const url=`${window.location.origin}/user/login`
+        console.log(data,url)
+        await fetch(url,{
+            method:'POST',
+            body : JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+           
+        })
+            .then((Response)=>Response.json())
+            .then((back)=>{
+                if(back.status)
+                {
+                    console.log(back.data)
+                    const link=`${window.location.origin}/api/${back.data[0]._id}`
+                    location.assign(link)
+                }
+                else
+                {
+                    document.querySelector('.error-message').style.display='block'
+                    document.querySelector('.error-message').innerHTML=`${back.error}`
+                    setTimeout(()=>{
+                        document.querySelector('.error-message').style.display='none'
+                    },2000)
+                }
+            })
+
+    }
+    // const tosignup=()=>{
+    //     location.assign(`${window.location.origin}/signup`)
+    // }
+   
+</script>
+
+
+</html>

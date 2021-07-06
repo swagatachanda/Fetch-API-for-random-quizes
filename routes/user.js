@@ -61,6 +61,7 @@ router.post('/signup',async(req,res)=>{
     res.json(status)
 })
 router.post('/login',async(req,res)=>{
+    console.log(req.body)
     if(req.body.username===undefined) {return res.json({"status": false, "error" : "no username and password"})}
     try{
         
@@ -68,18 +69,11 @@ router.post('/login',async(req,res)=>{
         if(status==false)
             res.json({'status' : status, error, code})
         else{
-            const searchUser= await user.findOne({'username': req.body.username})
+            const searchUser= await user.find({'username': req.body.username})
             console.log(searchUser)
-            // const quizdetails = await quiz.find({'userId':searchUser._id})
-            // const url=`${req.protocol}://${req.get('host')}/api/getall/${searchUser[0]._id}`
-            // const quesdetails = await fetch(url)
-            // const result = await quesdetails.json()
-            // console.log(result)
-            // res.render("quizdetails",{data : searchUser})
-        res.send({'data':searchUser})
-            
-            // res.json({"status": true, "data" : searchUser})
-            // res.send(searchUser)
+           
+        res.json({"status": true,"data":searchUser})
+        
         
          }
         }
