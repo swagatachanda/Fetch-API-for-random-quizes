@@ -24,7 +24,7 @@ const validateQuizID= async (id)=>{
 }
 
 router.post('/signup',async(req,res)=>{
-    console.log(req.body)
+    // console.log(req.body)
     var status={}
     try
     {
@@ -52,7 +52,7 @@ router.post('/signup',async(req,res)=>{
         else    
             status.code=12
         status.error=err.message
-        console.log(err)
+        // console.log(err)
     }
     }
     catch(err){
@@ -64,7 +64,7 @@ router.post('/signup',async(req,res)=>{
 
 
 router.post('/login',async(req,res)=>{
-    console.log(req.body)
+    // console.log(req.body)
     if(req.body.username===undefined) {return res.json({"status": false, "error" : "no username and password"})}
     try{
         

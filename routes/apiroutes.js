@@ -71,7 +71,7 @@ router.get('/:userid',async(req,res)=>{
     
     try{
         const searchUser=await user.findById(req.params.userid)
-        console.log(searchUser)
+        // console.log(searchUser)
     
         res.render("frontpage",{data:searchUser})
     }
@@ -84,7 +84,7 @@ router.get('/:userid',async(req,res)=>{
 
 
 router.post('/create/:userid',async(req,res)=>{
-    console.log(req.body)
+    // console.log(req.body)
     const quesdet = new quiz({
         userId : req.params.userid,
         dot: new Date(),
@@ -104,7 +104,7 @@ router.post('/create/:userid',async(req,res)=>{
             } 
         })
         const json_res = await resp.json()
-        console.log(json_res)
+        // console.log(json_res)
         res.send(json_res)
         
     }
@@ -119,7 +119,7 @@ router.post('/create/:userid',async(req,res)=>{
 router.patch('/quiz/:quizId', async(req,res)=>{
     try{
         const quesdetails = await quiz.findById(req.params.quizId)
-        console.log(quesdetails)
+        // console.log(quesdetails)
         const cat = map_category(quesdetails.category)
         const diff = map_difficulty(quesdetails.difficulty)
         const typ = map_type(quesdetails.type)
@@ -157,11 +157,11 @@ router.patch('/quiz/:quizId', async(req,res)=>{
             url = `${process.env.URL}amount=${quesdetails.noofquestions}&category=${cat}&difficulty=${diff}&type=${typ}`
             }
         
-        console.log(url)
+        // console.log(url)
             const response = await fetch(url)
             const json = await response.json()
             newQuestions=[]
-            console.log(json)
+            // console.log(json)
             if(json['response_code']===1){
                 var Newquestions={}
                 Newquestions.category = "Quiz Not Available"
@@ -175,8 +175,8 @@ router.patch('/quiz/:quizId', async(req,res)=>{
                 newQuestions.push(Newquestions)
             }
             else{
-            console.log(json.results[0].incorrect_answers)
-            console.log(quesdetails.noofquestions)
+            // console.log(json.results[0].incorrect_answers)
+            // console.log(quesdetails.noofquestions)
             
           
             json.results.map((item)=>{
@@ -184,7 +184,7 @@ router.patch('/quiz/:quizId', async(req,res)=>{
                 var Newquestions={}
                 opt = item.incorrect_answers 
                 opt.push(item.correct_answer)
-                console.log(opt)
+                // console.log(opt)
                 for (var i=0;i<opt.length;i++){
                 j= Math.round(Math.random()*(opt.length-1))
                 temp = opt[i]
@@ -192,7 +192,7 @@ router.patch('/quiz/:quizId', async(req,res)=>{
                 opt[j] = temp
                
             }
-            console.log(opt)
+            // console.log(opt)
             if(diff=="Any Difficulty"){
             Newquestions.category = item.category
             Newquestions.type = item.type
@@ -201,7 +201,7 @@ router.patch('/quiz/:quizId', async(req,res)=>{
             Newquestions.correct_answer = item.correct_answer
             Newquestions.incorrect_answers = item.incorrect_answers
             Newquestions.options = opt
-            console.log(diff)
+            // console.log(diff)
             }
             else{
                 Newquestions.category = item.category
@@ -211,13 +211,13 @@ router.patch('/quiz/:quizId', async(req,res)=>{
                 Newquestions.correct_answer = item.correct_answer
                 Newquestions.incorrect_answers = item.incorrect_answers
                 Newquestions.options = opt
-                console.log(diff)
+                // console.log(diff)
             }
       
             newQuestions.push(Newquestions)
             })
         }
-            console.log(newQuestions)
+            // console.log(newQuestions)
             const questions = new question({
                 quizId: req.params.quizId,
                 answers_det: newQuestions
@@ -245,7 +245,7 @@ router.get('/quiz/:quizId', async(req,res)=>{
     const quizdetails = await quiz.findById(req.params.quizId)
    
     const userdetails = await user.findById(quizdetails.userId)
-    console.log(userdetails._id)
+    // console.log(userdetails._id)
     sendQuestions=[]
     getques[0].answers_det.map((item)=>{
         var data={}
@@ -273,8 +273,8 @@ router.get('/getall/:userId',async(req,res)=>{
         
     const getques = await quiz.find({'userId':req.params.userId})
     const userinfo = await user.findById(req.params.userId)
-    console.log(userinfo)
-    console.log(getques)
+    // console.log(userinfo)
+    // console.log(getques)
     getquestions.push(userinfo.username)
     getques.map((item)=>{
         var ques={}
@@ -289,7 +289,7 @@ router.get('/getall/:userId',async(req,res)=>{
     recieveques.push(ques)
     })
     getquestions.push(recieveques)
-    console.log(getquestions)
+    // console.log(getquestions)
 
     res.render("quizdetails",{data : getquestions})
     }
