@@ -166,7 +166,7 @@ router.patch('/quiz/:quizId', async(req,res)=>{
                 var Newquestions={}
                 Newquestions.category = "Quiz Not Available"
                 Newquestions.type = "Quiz Not Available"
-                Newquestions.difficulty = "Quiz Not Available"
+                Newquestions.difficulty = ""
                 Newquestions.question = "Quiz Not Available"
                 Newquestions.correct_answer = "Quiz Not Available"
                 Newquestions.incorrect_answers = ["Quiz Not Available"]
@@ -193,6 +193,7 @@ router.patch('/quiz/:quizId', async(req,res)=>{
                
             }
             console.log(opt)
+            if(diff=="Any Difficulty"){
             Newquestions.category = item.category
             Newquestions.type = item.type
             Newquestions.difficulty = item.difficulty
@@ -200,6 +201,18 @@ router.patch('/quiz/:quizId', async(req,res)=>{
             Newquestions.correct_answer = item.correct_answer
             Newquestions.incorrect_answers = item.incorrect_answers
             Newquestions.options = opt
+            console.log(diff)
+            }
+            else{
+                Newquestions.category = item.category
+                Newquestions.type = item.type
+                Newquestions.difficulty = ""
+                Newquestions.question = item.question
+                Newquestions.correct_answer = item.correct_answer
+                Newquestions.incorrect_answers = item.incorrect_answers
+                Newquestions.options = opt
+                console.log(diff)
+            }
       
             newQuestions.push(Newquestions)
             })
@@ -237,6 +250,7 @@ router.get('/quiz/:quizId', async(req,res)=>{
     getques[0].answers_det.map((item)=>{
         var data={}
         data.question=item.question
+        data.diff=item.difficulty
         data.options=item.options
         data.correct_answer=item.correct_answer
         data.userid=userdetails._id

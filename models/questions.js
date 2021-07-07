@@ -19,7 +19,7 @@ const Questions = mongoose.Schema({
     },
     difficulty:{
         type: String,
-        required: true
+        // required: true
     },
     question:{
         type: String,
