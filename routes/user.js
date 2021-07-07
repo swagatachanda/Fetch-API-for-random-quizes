@@ -60,6 +60,9 @@ router.post('/signup',async(req,res)=>{
     }
     res.json(status)
 })
+
+
+
 router.post('/login',async(req,res)=>{
     console.log(req.body)
     if(req.body.username===undefined) {return res.json({"status": false, "error" : "no username and password"})}

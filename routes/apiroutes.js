@@ -14,6 +14,11 @@ router.use('/ques',question)
 
 router.use(express.json())
 
+
+
+
+
+
 const map_difficulty = (value)=>{
     if(value=='Hard'){
         value='hard'
@@ -155,11 +160,25 @@ router.patch('/quiz/:quizId', async(req,res)=>{
         console.log(url)
             const response = await fetch(url)
             const json = await response.json()
+            newQuestions=[]
             console.log(json)
+            if(json['response_code']===1){
+                var Newquestions={}
+                Newquestions.category = "Quiz Not Available"
+                Newquestions.type = "Quiz Not Available"
+                Newquestions.difficulty = "Quiz Not Available"
+                Newquestions.question = "Quiz Not Available"
+                Newquestions.correct_answer = "Quiz Not Available"
+                Newquestions.incorrect_answers = ["Quiz Not Available"]
+                Newquestions.options = ["Quiz Not Available"]
+          
+                newQuestions.push(Newquestions)
+            }
+            else{
             console.log(json.results[0].incorrect_answers)
             console.log(quesdetails.noofquestions)
             
-            newQuestions=[]
+          
             json.results.map((item)=>{
                 opt =[]
                 var Newquestions={}
@@ -184,12 +203,13 @@ router.patch('/quiz/:quizId', async(req,res)=>{
       
             newQuestions.push(Newquestions)
             })
-    
+        }
             console.log(newQuestions)
             const questions = new question({
                 quizId: req.params.quizId,
                 answers_det: newQuestions
             })
+        
             try{
                 const newQues = await questions.save()
                 res.json({'status': true, 'data': newQues})
@@ -197,6 +217,7 @@ router.patch('/quiz/:quizId', async(req,res)=>{
             catch(err){
                 res.json({'status': false, 'error': err, 'code':30})
             }
+        
            
     }
     catch(err){
@@ -233,12 +254,30 @@ router.get('/quiz/:quizId', async(req,res)=>{
 
 router.get('/getall/:userId',async(req,res)=>{
     try{
+        getquestions=[]
+        recieveques=[]
         
     const getques = await quiz.find({'userId':req.params.userId})
-    // res.render("quizdetails",{data : getques})
+    const userinfo = await user.findById(req.params.userId)
+    console.log(userinfo)
     console.log(getques)
-    res.render("quizdetails",{data : getques})
-    // res.json({'status': true, 'data':getques})
+    getquestions.push(userinfo.username)
+    getques.map((item)=>{
+        var ques={}
+        ques.noofquestions=item.noofquestions,
+    ques.category=item.category,
+    ques.difficulty=item.difficulty,
+    ques.type=item.type,
+    ques.dot=item.dot,
+    ques._id=item._id,
+    ques.userId=item.userId,
+    ques.username=userinfo.username
+    recieveques.push(ques)
+    })
+    getquestions.push(recieveques)
+    console.log(getquestions)
+
+    res.render("quizdetails",{data : getquestions})
     }
     catch(err)
     {

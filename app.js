@@ -16,6 +16,9 @@ app.set('view engine', 'ejs')
 app.get('/',async(req,res)=>{
     res.render("userpage")
 })
+app.get("/signup",async(req,res)=>{
+    res.render("signup")
+})
 
 mongoose.connect(process.env.DB_CONNECTION,{
     useNewUrlParser:true,

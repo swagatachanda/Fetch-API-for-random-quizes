@@ -20,10 +20,10 @@
             </div>
         </div>
         <div class="right">
-            <!-- <div class="after" onclick="toHome(`<%= data[0].userid %>`)">
+            <!-- <div class="after" onclick="toHome(``)">
                 <i class="fas fa-user-circle"></i>
             </div> -->
-            <div class="logout"> 
+            <div class="logout" onclick="logout()"> 
                 <i class="fas fa-sign-out-alt"></i>
             </div>
             
@@ -71,6 +71,9 @@
             Label.style.display = 'block';
     }
         }
+        const logout=()=>{
+        location.assign(`${window.location.origin}`)
+    }
 
     // const toHome=(val)=>{
     //     location.assign(`${window.location.origin}/api/getall/${val}`)

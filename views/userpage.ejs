@@ -7,7 +7,7 @@
     <script src="https://kit.fontawesome.com/11d589870a.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href='/createquiz.css'>
     <link rel="stylesheet" href='/login.css'>
-    <title>My Quiz</title>
+    <title>Random Questions</title>
 </head>
 <body>
     <div class="content-container">
@@ -47,7 +47,7 @@
             </div>
             <div class="signup">
                 <div class="create">
-                    <div class="create-label">
+                    <div class="create-label" onclick="tosignup()">
                         Create an account
                     </div>
                 </div>
@@ -268,9 +268,9 @@
             })
 
     }
-    // const tosignup=()=>{
-    //     location.assign(`${window.location.origin}/signup`)
-    // }
+    const tosignup=()=>{
+        location.assign(`${window.location.origin}/signup`)
+    }
    
 </script>
 

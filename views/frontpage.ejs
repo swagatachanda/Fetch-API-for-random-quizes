@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Get Random Quizes</title>
+    <title>Create Quizes</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/11d589870a.js" crossorigin="anonymous"></script>
 </head>
@@ -20,7 +20,7 @@
             <div class="after" onclick="toHome(`<%= data._id %>`)">
                 <i class="fas fa-user-circle"></i>
             </div>
-            <div class="logout"> 
+            <div class="logout" onclick="main()"> 
                 <i class="fas fa-sign-out-alt"></i>
             </div>
             
@@ -60,7 +60,8 @@
     </div>
     </div>
     
-    <div class="centerButton"><button id="btn">Create Quiz</button></div>
+    <div class="centerButton">
+        <div class="error-message"></div><button id="btn">Create Quiz</button></div>
    
     </div>
     <style>
@@ -199,7 +200,12 @@
         .then((data)=>{
             if(data.status){
                 console.log(data)
+                if(data.data.answers_det[0].category==="Quiz Not Available"){
+                    document.querySelector('.error-message').innerHTML="Quiz not available"
+                }
+                else{
                 location.assign(`${window.location.origin}/api/quiz/${data.data.quizId}`)
+                }
             }
             else{
                 alert('Failed')
@@ -210,6 +216,10 @@
     const toHome=(val)=>{
         location.assign(`${window.location.origin}/api/getall/${val}`)
     }
+    const main=()=>{
+        location.assign(`${window.location.origin}`)
+    }
+ 
   
     
    

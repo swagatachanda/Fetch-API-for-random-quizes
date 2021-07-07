@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/11d589870a.js" crossorigin="anonymous"></script>
+    <!-- <link rel="stylesheet" href='/createquiz.css'>
+    <link rel="stylesheet" href='/login.css'> -->
+    <title>Signup</title>
+</head>
+<body>
+    <div class="content-container">
+        <div class="login-container">
+            <div class="username">
+                <div class="label">
+                    Name
+                </div>
+                <div class="input-field">
+                    <input type="text" class="input uname" required placeholder="">
+                    <div class="border"></div>
+                </div>
+            </div>
+            <div class="username">
+                <div class="label">
+                    Email
+                </div>
+                <div class="input-field">
+                    <input type="text" class="input email" required placeholder="" onblur="validEmail(this.value)">
+                    <div class="border"></div>
+                </div>
+            </div>
+            <div class="username">
+                <div class="label">
+                    Username
+                </div>
+                <div class="input-field">
+                    <input type="text" class="input user" required placeholder="">
+                    <div class="border"></div>
+                </div>
+            </div>
+            <div class="password">
+                <div class="label">
+                    Password
+                </div>
+                <div class="input-field">
+                    <div class="whole-input">
+                        <input type="password" class="input pass p1" required placeholder="" onchange="changepass()">
+                        <div class="show-pass p1" onclick="showpass(1)">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                    </div>
+                    <div class="border"></div>
+                </div>
+            </div>
+            <div class="password">
+                <div class="label">
+                    Confirm password
+                </div>
+                <div class="input-field">
+                    <div class="whole-input">
+                        <input type="password" class="input pass p2" required placeholder="" onblur="check()">
+                        <div class="show-pass p2" onclick="showpass(2)">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                    </div>
+                    <div class="border"></div>
+                </div>
+            </div>
+            <div class="button-container">
+                <div class="error-message">
+
+                </div>
+                <div class="button login" onclick="signup()">
+                    <div class="button-label">
+                        Sign up
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+</body>
+<script>
+    var showpassState1=false
+    var showpassState2=false
+    var pass=false
+    var errmsg=document.querySelector('.error-message')
+    const showpass=(id)=>{
+    var elem=document.querySelector(`.input.pass.p${id}`)
+    var icon=document.querySelector(`.show-pass.p${id}`)
+    if(id===1)
+    {
+        if(!showpassState1)
+        {
+            elem.type='text'
+            icon.innerHTML=`<i class="far fa-eye-slash"></i>`
+            showpassState1=true
+        }
+        else
+        {
+            elem.type='password'
+            icon.innerHTML=`<i class="far fa-eye"></i>`
+            showpassState1=false
+        }
+    }
+    else
+    {
+        if(!showpassState2)
+        {
+            elem.type='text'
+            icon.innerHTML=`<i class="far fa-eye-slash"></i>`
+            showpassState2=true
+        }
+        else
+        {
+            elem.type='password'
+            icon.innerHTML=`<i class="far fa-eye"></i>` 
+            showpassState2=false
+        }
+    }
+    }
+    const changepass=()=>{
+        pass=false
+    }
+    const errormessage=(msg)=>{
+        errmsg.style.display='block'
+        errmsg.innerHTML=`${msg}`
+        setTimeout(()=>{errmsg.style.display='none'},2000)
+    }
+    const validEmail=(email)=>{
+        var mailformat = /^(?:[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+\.)*[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+@(?:(?:(?:[a-zA-Z0-9](?:[a-zA-Z0-9\-](?!\.)){0,61}[a-zA-Z0-9]?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9\-](?!$)){0,61}[a-zA-Z0-9]?)|(?:\[(?:(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\.){3}(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\]))$/
+        if(email.match(mailformat))
+        {
+            document.querySelector(".input.email").style.color='white'
+            return true;
+        }
+        else
+        {
+            document.querySelector(".input.email").focus()
+            document.querySelector(".input.email").style.color='red'
+            return false;
+        }
+    }
+    const check=()=>{
+        if(document.querySelector('.input.pass.p1').value!==document.querySelector('input.pass.p2').value)
+        {
+            errormessage('Password not a match')
+            document.querySelector('.input.pass.p2').value=''
+            pass=false
+        }
+        else
+        {
+            pass=true
+        }
+    }
+    const signup=async ()=>{
+        if(!pass){errormessage('Fill the details correctly'); return}
+        var data={}
+        data.Name=document.querySelector('.input.uname').value
+        data.mail=document.querySelector('.input.email').value
+        data.username=document.querySelector('.input.user').value
+        data.password=document.querySelector('.input.pass').value
+        console.log(data)
+        for(x in data)
+        {
+            if(data[x]==='')
+            {
+                errormessage('Fill up the empty fields')
+                return
+            }
+        }
+        const url=`${window.location.origin}/user/signup`
+        await fetch(url,{
+            method:'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body : JSON.stringify(data)
+        })
+            .then((Response)=>Response.json())
+            .then((back)=>{
+                console.log(back)
+                if(back.status)
+                {
+                    location.assign(`${window.location.origin}`)
+                }
+                else
+                {
+                    errormessage('Username or email already taken')
+                }
+            })
+    }
+
+</script>
+<style>
+    .login-container
+    {
+        width: 30%;
+        height: 100%;
+    }
+    .username{
+        padding-top: 20px;
+    }
+    @media screen and (max-width: 1100px){
+        .login-container
+        {
+            width: 90%;
+            height: 100%;
+        }
+    }
+    @media screen and (max-height : 634px ) {
+        .login-container
+        {
+            height: 90%;
+        }
+        .content-container
+        {
+            height: fit-content;
+        }
+        .button-container
+        {
+            padding-bottom: 20px;
+        }
+    }
+    .button-label{
+        cursor: pointer;
+    }
+</style>
+</html>
