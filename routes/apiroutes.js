@@ -5,7 +5,7 @@ const fetch = require('node-fetch')
 const user = require('../models/login')
 const question = require('../models/questions')
 const router = express.Router()
-require('dotenv/config')
+require('dotenv').config()
 
 
 

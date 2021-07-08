@@ -5,7 +5,7 @@ const User = require('./routes/user')
 
 const app = expresss()
 
-require('dotenv/config')
+require('dotenv').config()
 
 app.use('/api',API)
 app.use('/user',User)
