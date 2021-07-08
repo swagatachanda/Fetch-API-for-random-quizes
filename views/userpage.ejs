@@ -11,6 +11,10 @@
     <title>Random Questions</title>
 </head>
 <body>
+    <div class="container-fluid header">
+    <h1>Login to enjoy some random quizes and Test your knowledge</h1>
+    <p>Since you will get new set of questions every time you create, you can see your previously created quizes from your profile.</p>
+    </div>
     <div class="content-container">
         <div class="container-fluid login-container">
             <div class="username">
@@ -62,7 +66,7 @@
         padding: 0px;
         width: 100%;
         height: 100%;
-        background-color: rgb(5, 153, 153)
+        background-image: url(https://wallpaperaccess.com/full/2384075.jpg);
         }
         @import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
         .content-container
@@ -72,6 +76,14 @@
             align-items: center;
             display: inline;
         }
+        h1{
+            font-style:oblique;
+            /* background-color: rgb(117, 196, 27); */
+            
+        }
+        .header{
+            padding-top: 10px;
+        }
         .login-container
         {
             width: 30%;
@@ -80,8 +92,14 @@
             flex-direction: column;
             justify-content: center;
             padding-left: 20px;
-            
-          
+            /* border: 2px solid black; */
+            background-image: url(https://image.freepik.com/free-vector/blue-quiz-background-with-light-bulb-and-pencils_23-2147598504.jpg);
+            background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover;
+  background-position: center;
+  /* z-index: -1; */
+    /* background-opacity: 0.6; */
+            /* background-color: yellow; */
         }
         .username,.password
         {
@@ -107,6 +125,7 @@
             border: none;
             width: 100%;
             font-size: 18px;
+            border-bottom: 1.7px solid black;
         }
         .pass
         {
@@ -155,19 +174,21 @@
         }
         .show-pass:hover{
             cursor: pointer;
-            color: white;
+            color:rgb(101, 51, 167);
         }
         .create
         {
             font-family: 'Raleway',sans-serif;
+            font-weight: 200;
             user-select: none;
             display: flex;
+            /* border-bottom: 2px solid black; */
         }
-        
+       
         .create-label:hover
         {
             cursor: pointer;
-            color: salmon;
+            color:salmon;
         }
         .error-message
         {
