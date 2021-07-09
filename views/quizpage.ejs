@@ -21,9 +21,7 @@
             <!-- <div id="quiz">All quizes</div> -->
         </div>
         <div class="right">
-            <!-- <div class="after" onclick="toHome(``)">
-                <i class="fas fa-user-circle"></i>
-            </div> -->
+          
             <div class="logout" onclick="logout()"> 
                 <i class="fas fa-sign-out-alt"></i>
             </div>
@@ -53,10 +51,12 @@
                    <%})%>
                     </ol>
                 </div>
-                <div class="answer-label" id="<%= item.correct_answer %>" style="display:none;">
+                <div class="answer-label" id="<%= item.question %>" style="display:none;">
                     <%= item.correct_answer %>
+                    
                 </div>
-                <button id="btn" onclick="hide(`<%= item.correct_answer%>`)">Show Answer</button> 
+                <button id="btn" onclick="hide(`<%= item.question %>`)" >Show Answer</button> 
+                
             </div>
         <% }) %>
         </ol>
@@ -66,20 +66,23 @@
         
     const hide=(val)=>{
   
-            let Label = document.getElementById(`${val}`);
-            console.log(Label.value)
-            
-            if(Label.style.display == 'none'){
-            Label.style.display = 'block';
-    }
+                let Label = document.getElementById(`${val}`);
+                
+                
+                if(Label.style.display == 'none'){
+                Label.style.display = 'block';
+          }
+        else{
+            Label.style.display='none';
+         }
         }
-        const logout=()=>{
-        location.assign(`${window.location.origin}`)
-    }
+    
+    
+    const logout=()=>{
+            location.assign(`${window.location.origin}`)
+            }
 
-    // const toHome=(val)=>{
-    //     location.assign(`${window.location.origin}/api/getall/${val}`)
-    // }
+  
       
 </script>
 </html>

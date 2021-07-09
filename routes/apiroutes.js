@@ -182,17 +182,17 @@ router.patch('/quiz/:quizId', async(req,res)=>{
             json.results.map((item)=>{
                 opt =[]
                 var Newquestions={}
+               
                 opt = item.incorrect_answers 
                 opt.push(item.correct_answer)
-                // console.log(opt)
+                
                 for (var i=0;i<opt.length;i++){
                 j= Math.round(Math.random()*(opt.length-1))
                 temp = opt[i]
                 opt[i] = opt[j]
                 opt[j] = temp
-               
-            }
-            // console.log(opt)
+                }
+            
             if(diff=="Any Difficulty"){
             Newquestions.category = item.category
             Newquestions.type = item.type
@@ -217,7 +217,8 @@ router.patch('/quiz/:quizId', async(req,res)=>{
             newQuestions.push(Newquestions)
             })
         }
-            // console.log(newQuestions)
+            
+            
             const questions = new question({
                 quizId: req.params.quizId,
                 answers_det: newQuestions

@@ -73,7 +73,7 @@ router.post('/login',async(req,res)=>{
             res.json({'status' : status, error, code})
         else{
             const searchUser= await user.find({'username': req.body.username})
-            console.log(searchUser)
+            // console.log(searchUser)
            
         res.json({"status": true,"data":searchUser})
         
